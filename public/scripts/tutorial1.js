@@ -15,11 +15,21 @@ var Comment = React.createClass({
 });
 
 var CommentForm = React.createClass({
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var author = React.findDOMNode(this.refs.author).value.trim();
+    var text = React.findDOMNode(this.refs.text).value.trim();
+    if (!text || !author) {
+      return;
+    }
+    React.findDOMNode(this.refs.author).value = '';
+    React.findDOMNode(this.refs.text).value = '';
+  },
   render: function() {
     return (
       <form className="commentForm">
-        <input type="text" placeholder="Your name" />
-        <input type="text" placeholder="Say something . . ." />
+        <input type="text" placeholder="Your name" ref="author" />
+        <input type="text" placeholder="Say something . . ." ref="text" />
         <input type="submit" value="Post" />
       </form>
     )
@@ -38,6 +48,9 @@ var CommentBox = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+  },
+  handleCommentSubmit: function(comment) {
+    
   },
   getInitialState: function() {
     return {data: []};
@@ -75,6 +88,6 @@ var CommentList = React.createClass({
 });
 
 React.render(
-  <CommentBox url="comments.json" pollInterval={1000 * 60} />,
+  <CommentBox url="comments.json" pollInterval={2000} />,
   document.getElementById('content')
 );

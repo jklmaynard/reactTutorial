@@ -1,11 +1,7 @@
 var converter = new Showdown.converter();
 
 var CommentBox = React.createClass({
-  getInitialState: function() {
-    return {data: []};
-  },
-
-  compnentDidMount: function() {
+  loadCommentsFromServer: function() {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -16,6 +12,15 @@ var CommentBox = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+  },
+
+  getInitialState: function() {
+    return {data: []};
+  },
+
+  compnentDidMount: function() {
+    this.loadCommentsFromServer();
+    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
   },
 
   render: function() {

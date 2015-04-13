@@ -1,5 +1,29 @@
 var converter = new Showdown.converter();
 
+var Comment = React.createClass({
+  render: function() {
+    var rawMarkup = converter.makeHtml(this.props.children.toString())//To rid browser of html tags.
+    return (
+      <div className="comment">
+        <h4 className="commentAuthor">
+          {this.props.author}
+        </h4>
+        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+      </div>
+    );
+  }
+});
+
+var CommentForm = React.createClass({
+  render: function() {
+    return (
+      <div className = "commentForm">
+        And Hello! I am a CommentForm.
+      </div>
+    )
+  }
+});
+
 var CommentBox = React.createClass({
   loadCommentsFromServer: function() {
     $.ajax({
@@ -13,16 +37,13 @@ var CommentBox = React.createClass({
       }.bind(this)
     });
   },
-
   getInitialState: function() {
     return {data: []};
   },
-
-  compnentDidMount: function() {
+  componentDidMount: function() {
     this.loadCommentsFromServer();
     setInterval(this.loadCommentsFromServer, this.props.pollInterval);
   },
-
   render: function() {
     return (
       <div className="commentBox">
@@ -46,30 +67,6 @@ var CommentList = React.createClass({
     return (
       <div className="commentList">
         {commentNodes}
-      </div>
-    );
-  }
-});
-
-var CommentForm = React.createClass({
-  render: function() {
-    return (
-      <div className = "commentForm">
-        And Hello! I am a CommentForm.
-      </div>
-    )
-  }
-});
-
-var Comment = React.createClass({
-  render: function() {
-    var rawMarkup = converter.makeHtml(this.props.children.toString())//To rid browser of html tags.
-    return (
-      <div className="comment">
-        <h4 className="commentAuthor">
-          {this.props.author}
-        </h4>
-        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
       </div>
     );
   }

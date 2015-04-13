@@ -6,5 +6,9 @@
   {
     "author": "John White",
     "text": "This is *another* comment"
+  },
+  {
+    "author": "James Maynard",
+    "text": "This is yet *another* comment"
     }
 ]

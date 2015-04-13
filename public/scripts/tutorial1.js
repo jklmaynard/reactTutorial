@@ -17,9 +17,11 @@ var Comment = React.createClass({
 var CommentForm = React.createClass({
   render: function() {
     return (
-      <div className = "commentForm">
-        And Hello! I am a CommentForm.
-      </div>
+      <form className="commentForm">
+        <input type="text" placeholder="Your name" />
+        <input type="text" placeholder="Say something . . ." />
+        <input type="submit" value="Post" />
+      </form>
     )
   }
 });
@@ -73,6 +75,6 @@ var CommentList = React.createClass({
 });
 
 React.render(
-  <CommentBox url="comments.json" pollInterval={2000} />,
+  <CommentBox url="comments.json" pollInterval={1000 * 60} />,
   document.getElementById('content')
 );

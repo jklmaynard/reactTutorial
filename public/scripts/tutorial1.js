@@ -4,11 +4,14 @@ var data = [
   {author: "John White", text: "This is *another* comment."}
 ]
 var CommentBox = React.createClass({
+  getInitialState: function() {
+    return {data: []};
+  },
   render: function() {
     return (
       <div className="commentBox">
         <h3> Comments </h3>
-        <CommentList data={this.props.data} />
+        <CommentList data={this.state.data} />
         <CommentForm />
       </div>
     );

@@ -28,7 +28,7 @@ var CommentForm = React.createClass({
   },
   render: function() {
     return (
-      <form className="commentForm">
+      <form className="commentForm" onSubmit={this.handleSubmit}>
         <input type="text" placeholder="Your name" ref="author" />
         <input type="text" placeholder="Say something . . ." ref="text" />
         <input type="submit" value="Post" />
@@ -51,7 +51,18 @@ var CommentBox = React.createClass({
     });
   },
   handleCommentSubmit: function(comment) {
-
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'POST',
+      data: comment,
+      success: function(data) {
+        this.setState({data: data})
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
   },
   getInitialState: function() {
     return {data: []};

@@ -22,6 +22,7 @@ var CommentForm = React.createClass({
     if (!text || !author) {
       return;
     }
+    this.props.onCommentSubmit({author: author, text: text})
     React.findDOMNode(this.refs.author).value = '';
     React.findDOMNode(this.refs.text).value = '';
   },
@@ -50,7 +51,7 @@ var CommentBox = React.createClass({
     });
   },
   handleCommentSubmit: function(comment) {
-    
+
   },
   getInitialState: function() {
     return {data: []};
@@ -64,7 +65,7 @@ var CommentBox = React.createClass({
       <div className="commentBox">
         <h3> Comments </h3>
         <CommentList data={this.state.data} />
-        <CommentForm />
+        <CommentForm onCommentSubmit={this.handleCommentSubmit}/>
       </div>
     );
   }
